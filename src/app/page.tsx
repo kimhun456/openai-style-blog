@@ -1,6 +1,19 @@
 import Link from 'next/link';
 import { getSortedPostsData, PostData } from '@/lib/posts';
 
+export async function generateMetadata() {
+  return {
+    title: 'Code & Thought',
+    description: 'Personal tech blog featuring code, thoughts, and insights.',
+    openGraph: {
+      title: 'Code & Thought',
+      description: 'Personal tech blog featuring code, thoughts, and insights.',
+      type: 'website',
+      url: '/',
+    },
+  };
+}
+
 export default function Home() {
   const allPostsData: PostData[] = getSortedPostsData();
 

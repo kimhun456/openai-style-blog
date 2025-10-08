@@ -2,7 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
-import html from 'remark-html';
+import remarkRehype from 'remark-rehype';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeStringify from 'rehype-stringify';
 
 const postsDirectory = path.join(process.cwd(), '_posts');
 
@@ -67,7 +69,9 @@ export async function getPostData(id: string): Promise<PostData> {
 
   // Use remark to convert markdown into HTML string
   const processedContent = await remark()
-    .use(html)
+    .use(remarkRehype)
+    .use(rehypeHighlight)
+    .use(rehypeStringify)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
@@ -80,4 +84,15 @@ export async function getPostData(id: string): Promise<PostData> {
     tags: matterResult.data.tags,
     summary: matterResult.data.summary,
   };
+}
+
+export function getAllTags(): string[] {
+  const postsData = getSortedPostsData();
+  const allTags = postsData.flatMap((post) => post.tags);
+  return Array.from(new Set(allTags.sort()));
+}
+
+export function getPostsByTag(tag: string): Omit<PostData, 'contentHtml'>[] {
+  const postsData = getSortedPostsData();
+  return postsData.filter((post) => post.tags.includes(tag));
 }

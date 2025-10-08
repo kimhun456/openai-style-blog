@@ -14,6 +14,14 @@ export async function generateMetadata(props: any) {
   const postData = await getPostData(params.slug);
   return {
     title: postData.title,
+    description: postData.summary,
+    openGraph: {
+      title: postData.title,
+      description: postData.summary,
+      type: 'article',
+      publishedTime: new Date(postData.date).toISOString(),
+      tags: postData.tags,
+    },
   };
 }
 

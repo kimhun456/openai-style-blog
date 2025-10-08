@@ -24,41 +24,75 @@ export async function generateMetadata(props: any) {
 
 // Allow `any` here because Next's generated PageProps typing is incompatible with narrow types
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function TagDetail(props: any) {
+export default async function TagDetail(props: any) {
   const { params } = props;
   const tag = params.tag;
   const posts = getPostsByTag(tag);
 
   return (
-    <section>
-      <h1 className="text-4xl font-bold mb-8">Posts tagged with #{tag}</h1>
-      <ul>
-        {posts.map(({ id, date, title, summary, tags }) => (
-          <li key={id} className="mb-8">
-            <h2 className="text-2xl font-semibold">
-              <Link href={`/posts/${id}`} className="hover:text-gray-400">
-                {title}
-              </Link>
-            </h2>
-            <small className="text-gray-500">{date}</small>
-            <p className="mt-2">{summary}</p>
-            <div className="mt-2">
+    <section className="max-w-4xl mx-auto">
+      <div className="text-center mb-16 slide-up">
+        <h1 className="font-bold text-openai-black dark:text-openai-white mb-4">Posts tagged with #{tag}</h1>
+        <p className="text-xl text-openai-gray-600 dark:text-openai-gray-300">
+          {posts.length} {posts.length === 1 ? 'post' : 'posts'} found
+        </p>
+      </div>
+
+      <div className="space-y-12">
+        {posts.map(({ id, date, title, summary, tags }, index) => (
+          <article
+            key={id}
+            className="slide-up pb-12 border-b border-openai-gray-200 dark:border-openai-gray-800 last:border-b-0"
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
+            <header className="mb-6">
+              <h2 className="font-semibold mb-3">
+                <Link
+                  href={`/posts/${id}`}
+                  className="text-openai-black dark:text-openai-white hover:text-openai-blue dark:hover:text-openai-blue transition-colors duration-300"
+                >
+                  {title}
+                </Link>
+              </h2>
+              <time className="text-openai-gray-500 dark:text-openai-gray-400 text-sm font-medium">
+                {date}
+              </time>
+            </header>
+
+            <p className="text-openai-gray-700 dark:text-openai-gray-200 mb-4 leading-relaxed">
+              {summary}
+            </p>
+
+            <div className="flex flex-wrap gap-2 mb-4">
               {tags.map((t) => (
                 <Link
                   key={t}
                   href={`/tags/${t}`}
-                  className="inline-block bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 hover:bg-gray-600"
+                  className="inline-flex items-center justify-center px-3 py-1 text-sm font-medium bg-transparent border border-openai-gray-300 dark:border-openai-gray-600 text-openai-black dark:text-openai-white rounded-none hover:bg-openai-black hover:text-openai-white dark:hover:bg-openai-white dark:hover:text-openai-black transition-colors duration-300"
                 >
                   #{t}
                 </Link>
               ))}
             </div>
-          </li>
+
+            <Link
+              href={`/posts/${id}`}
+              className="inline-flex items-center text-openai-blue hover:text-openai-black dark:hover:text-openai-gray-200 transition-colors duration-300 font-medium"
+            >
+              Read more →
+            </Link>
+          </article>
         ))}
-      </ul>
-      <Link href="/tags" className="text-blue-400 hover:text-blue-300">
-        ← Back to all tags
-      </Link>
+      </div>
+
+      <div className="mt-12 pt-8 border-t border-openai-gray-200 dark:border-openai-gray-800">
+        <Link
+          href="/tags"
+          className="inline-flex items-center text-openai-gray-600 dark:text-openai-gray-300 hover:text-openai-blue dark:hover:text-openai-blue transition-colors duration-300 font-medium"
+        >
+          ← Back to all tags
+        </Link>
+      </div>
     </section>
   );
 }

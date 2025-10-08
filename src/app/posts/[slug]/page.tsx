@@ -1,4 +1,4 @@
-import { getPostData, getAllPostIds, PostData } from '@/lib/posts';
+import { getPostData, getAllPostIds } from '@/lib/posts';
 import Link from 'next/link';
 
 export async function generateStaticParams() {
@@ -6,14 +6,21 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+// loosen param types to satisfy Next's generated PageProps typing
+// Allow `any` here because Next's generated PageProps typing is incompatible with narrow types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function generateMetadata(props: any) {
+  const { params } = props;
   const postData = await getPostData(params.slug);
   return {
     title: postData.title,
   };
 }
 
-export default async function Post({ params }: { params: { slug: string } }) {
+// Allow `any` here because Next's generated PageProps typing is incompatible with narrow types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function Post(props: any) {
+  const { params } = props;
   const postData = await getPostData(params.slug);
 
   return (

@@ -9,6 +9,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { visit } from 'unist-util-visit';
 import { Root, Element } from 'hast';
+import { VFile } from 'vfile';
 
 const postsDirectory = path.join(process.cwd(), '_posts');
 
@@ -30,7 +31,7 @@ export interface PostData {
 
 // Custom plugin to extract TOC
 const rehypeTocExtract = () => {
-  return (tree: Root, file: any) => {
+  return (tree: Root, file: VFile) => {
     const toc: TocEntry[] = [];
     visit(tree, 'element', (node: Element) => {
       if (node.tagName === 'h2' || node.tagName === 'h3') {
@@ -115,7 +116,7 @@ export async function getPostData(id: string): Promise<PostData> {
     .process(matterResult.content);
     
   const contentHtml = processedContent.toString();
-  const toc = (processedContent.data as any).toc || [];
+  const toc = (processedContent.data.toc as TocEntry[]) || [];
 
   // Combine the data with the id and contentHtml
   return {

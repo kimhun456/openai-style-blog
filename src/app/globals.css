@@ -25,6 +25,9 @@ body {
   --color-openai-gray-800: #1f2937;
   --color-openai-gray-900: #1A1A1A; /* Darker gray */
 
+  --color-green-600: #16A34A;
+  --color-green-700: #15803D;
+
   --animate-fade-in: fadeIn 0.6s ease-in-out;
   --animate-slide-up: slideUp 0.6s ease-out;
 }
@@ -39,9 +42,7 @@ body {
   100% { opacity: 1; transform: translateY(0); }
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer utilities {
   .fade-in {

@@ -11,7 +11,7 @@ const Header = () => {
         >
           Code & Thought
         </Link>
-        <nav className="flex items-center space-x-6">
+        <nav className="flex items-center space-x-10">
           <Link
             href="/"
             className="text-lg font-medium text-openai-gray-700 dark:text-openai-gray-200 hover:text-openai-blue dark:hover:text-openai-blue transition-colors duration-300"

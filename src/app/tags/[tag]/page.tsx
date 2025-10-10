@@ -10,7 +10,7 @@ export async function generateStaticParams() {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function generateMetadata(props: any) {
   const { params } = props;
-  const tag = params.tag;
+  const tag = (await params).tag;
   return {
     title: `Posts with tag: ${tag}`,
     description: `Browse all blog posts tagged with ${tag}.`,
@@ -26,7 +26,7 @@ export async function generateMetadata(props: any) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function TagDetail(props: any) {
   const { params } = props;
-  const tag = params.tag;
+  const tag = (await params).tag;
   const posts = getPostsByTag(tag);
 
   return (

@@ -1,4 +1,43 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
 @import 'highlight.js/styles/github.css';
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: var(--font-fira-code), ui-monospace, 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
+
+  --color-openai-black: #000000;
+  --color-openai-white: #ffffff;
+  --color-openai-blue: #4C82F7; /* Updated accent blue */
+
+  --color-openai-gray-50: #f9fafb;
+  --color-openai-gray-100: #f3f4f6;
+  --color-openai-gray-200: #e5e7eb;
+  --color-openai-gray-300: #d1d5db;
+  --color-openai-gray-400: #9ca3af;
+  --color-openai-gray-500: #6b7280;
+  --color-openai-gray-600: #4b5563;
+  --color-openai-gray-700: #374151;
+  --color-openai-gray-800: #1f2937;
+  --color-openai-gray-900: #1A1A1A; /* Darker gray */
+
+  --animate-fade-in: fadeIn 0.6s ease-in-out;
+  --animate-slide-up: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
 
 @tailwind base;
 @tailwind components;

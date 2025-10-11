@@ -22,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${firaCode.variable} antialiased bg-openai-white dark:bg-openai-black text-openai-black dark:text-openai-white leading-relaxed`}>
+    <html lang="en" className="bg-openai-white dark:bg-openai-black text-openai-black dark:text-openai-white">
+      <body className={`${inter.variable} ${firaCode.variable} antialiased leading-relaxed`}>
         <ThemeProvider>
           <Layout>{children}</Layout>
         </ThemeProvider>
